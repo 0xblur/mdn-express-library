@@ -1,4 +1,8 @@
 const Book = require("../db/models/Book");
+const Author = require("../db/models/Author");
+const Genre = require("../db/models/Genre");
+const BookInstance = require("../db/models/BookInstance");
+
 const asyncHandler = require("express-async-handler");
 
 exports.index = asyncHandler(async (req, res, next) => {
