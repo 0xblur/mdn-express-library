@@ -24,7 +24,7 @@ export default class BookController {
 		]);
 
 		res.render("index", {
-			title: "Local Library Home",
+			title: "LocalLibrary | Home",
 			book_count: numBooks,
 			book_instance_count: numBookInstances,
 			book_instance_available_count: numAvailableBookInstances,
