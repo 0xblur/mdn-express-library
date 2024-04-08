@@ -5,7 +5,8 @@
   "scripts": {
     "start": "DEBUG=express-locallibrary-tutorial:* node --env-file=.env ./bin/www",
     "watch": "DEBUG=express-locallibrary-tutorial:* node --watch --env-file=.env ./bin/www",
-    "db": "node --env-file=.env ./db/main.js"
+    "db": "node --env-file=.env ./db/main.js",
+    "debug": "node --env-file=.env --inspect-brk ./bin/www"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
@@ -13,6 +14,7 @@
     "express": "~4.16.1",
     "express-async-handler": "^1.2.0",
     "express-handlebars": "^7.1.2",
+    "handlebars": "^4.7.8",
     "http-errors": "~1.6.3",
     "liquidjs": "^10.10.2",
     "mongoose": "^8.3.0",
