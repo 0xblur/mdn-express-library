@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const Schema = mongoose.Schema;
 
@@ -10,4 +10,5 @@ GenreSchema.virtual("url").get(() => {
 	return `/catalog/genre/${this._id}`;
 });
 
-module.exports = mongoose.model("Genre", GenreSchema);
+const Genre = mongoose.model("Genre", GenreSchema);
+export default Genre;

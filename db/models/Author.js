@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const Schema = mongoose.Schema;
 
@@ -22,4 +22,6 @@ AuthorSchema.virtual("url").get(() => {
 	return `/catalog/author/${this._id}`;
 });
 
-module.exports = mongoose.model("Author", AuthorSchema);
+const Author = mongoose.model("Author", AuthorSchema);
+
+export default Author;

@@ -1,50 +1,75 @@
-const Book = require("../db/models/Book");
-const Author = require("../db/models/Author");
-const Genre = require("../db/models/Genre");
-const BookInstance = require("../db/models/BookInstance");
+import Book from "../db/models/Book.js";
+import Author from "../db/models/Author.js";
+import Genre from "../db/models/Genre.js";
+import BookInstance from "../db/models/BookInstance.js";
 
-const asyncHandler = require("express-async-handler");
+import asyncHandler from "express-async-handler";
 
-exports.index = asyncHandler(async (req, res, next) => {
-	res.send("NOT IMPLEMENTED: Site Home Page");
-});
+export default class BookController {
+	static index() {
+		asyncHandler(async (req, res, next) => {
+			const [
+				numBooks,
+				numBookInstances,
+				numAvailableBookInstances,
+				numAuthors,
+				numGenres,
+			] = await Promise.all([
+				Book.countDocuments({}).exec(),
+				BookInstance.countDocuments({}).exec(),
+				BookInstance.countDocuments({ status: "Available" }).exec(),
+				Author.countDocuments({}).exec(),
+				Genre.countDocuments({}).exec(),
+			]);
 
-// Display list of all books.
-exports.bookList = asyncHandler(async (req, res, next) => {
-	res.send("NOT IMPLEMENTED: Book list");
-});
+			res.render("index", {
+				title: "Local Library Home",
+				book_count: numBooks,
+				book_instance_count: numBookInstances,
+				book_instance_available_count: numAvailableBookInstances,
+				author_count: numAuthors,
+				genre_count: numGenres,
+			});
+		});
+	}
 
-// Display detail page for a specific book.
-exports.bookDetail = asyncHandler(async (req, res, next) => {
-	res.send(`NOT IMPLEMENTED: Book detail: ${req.params.id}`);
-});
+	// Display list of all books.
+	static bookList = asyncHandler(async (req, res, next) => {
+		res.send("NOT IMPLEMENTED: Book list");
+	});
 
-// Display book create form on GET.
-exports.bookCreateGet = asyncHandler(async (req, res, next) => {
-	res.send("NOT IMPLEMENTED: Book create GET");
-});
+	// Display detail page for a specific book.
+	static bookDetail = asyncHandler(async (req, res, next) => {
+		res.send(`NOT IMPLEMENTED: Book detail: ${req.params.id}`);
+	});
 
-// Handle book create on POST.
-exports.bookCreatePost = asyncHandler(async (req, res, next) => {
-	res.send("NOT IMPLEMENTED: Book create POST");
-});
+	// Display book create form on GET.
+	static bookCreateGet = asyncHandler(async (req, res, next) => {
+		res.send("NOT IMPLEMENTED: Book create GET");
+	});
 
-// Display book delete form on GET.
-exports.bookDeleteGet = asyncHandler(async (req, res, next) => {
-	res.send("NOT IMPLEMENTED: Book delete GET");
-});
+	// Handle book create on POST.
+	static bookCreatePost = asyncHandler(async (req, res, next) => {
+		res.send("NOT IMPLEMENTED: Book create POST");
+	});
 
-// Handle book delete on POST.
-exports.bookDeletePost = asyncHandler(async (req, res, next) => {
-	res.send("NOT IMPLEMENTED: Book delete POST");
-});
+	// Display book delete form on GET.
+	static bookDeleteGet = asyncHandler(async (req, res, next) => {
+		res.send("NOT IMPLEMENTED: Book delete GET");
+	});
 
-// Display book update form on GET.
-exports.bookUpdateGet = asyncHandler(async (req, res, next) => {
-	res.send("NOT IMPLEMENTED: Book update GET");
-});
+	// Handle book delete on POST.
+	static bookDeletePost = asyncHandler(async (req, res, next) => {
+		res.send("NOT IMPLEMENTED: Book delete POST");
+	});
 
-// Handle book update on POST.
-exports.bookUpdatePost = asyncHandler(async (req, res, next) => {
-	res.send("NOT IMPLEMENTED: Book update POST");
-});
+	// Display book update form on GET.
+	static bookUpdateGet = asyncHandler(async (req, res, next) => {
+		res.send("NOT IMPLEMENTED: Book update GET");
+	});
+
+	// Handle book update on POST.
+	static bookUpdatePost = asyncHandler(async (req, res, next) => {
+		res.send("NOT IMPLEMENTED: Book update POST");
+	});
+}

@@ -1,10 +1,10 @@
-const express = require("express");
-const router = express.Router();
+import BookController from "../controllers/BookController.js";
+import AuthorController from "../controllers/AuthorController.js";
+import GenreController from "../controllers/GenreController.js";
+import BookInstanceController from "../controllers/BookInstanceController.js";
+import express from "express";
 
-const BookController = require("../controllers/BookController");
-const AuthorController = require("../controllers/AuthorController");
-const GenreController = require("../controllers/GenreController");
-const BookInstanceController = require("../controllers/BookInstanceController");
+const router = express.Router();
 
 router.get("/", BookController.index);
 
@@ -127,4 +127,4 @@ router.get("/bookinstance/:id", BookInstanceController.bookInstanceDetail);
 // GET request for list of all BookInstance.
 router.get("/bookinstances", BookInstanceController.bookInstanceList);
 
-module.exports = router;
+export default router;

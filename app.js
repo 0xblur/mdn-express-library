@@ -1,21 +1,25 @@
-const createError = require("http-errors");
-const express = require("express");
-const { create } = require("express-handlebars");
-const path = require("node:path");
-const cookieParser = require("cookie-parser");
-const logger = require("morgan");
+import createError from "http-errors";
+import express from "express";
+import { create } from "express-handlebars";
+import path from "node:path";
+import cookieParser from "cookie-parser";
+import logger from "morgan";
 
-const indexRouter = require("./routes/index");
-const usersRouter = require("./routes/users");
-const catalogRouter = require("./routes/catalog");
+import indexRouter from "./routes/index.js";
+import catalogRouter from "./routes/catalog.js";
 
 const app = express();
 
 // view engine setup
+const __dirname = "./";
 const viewsDir = path.join(__dirname, "views");
-const hbs = create();
-app.engine("handlebars", hbs.engine);
-app.set("view engine", "handlebars");
+const layoutsDir = path.join(__dirname, "views/layouts");
+const partialsDir = path.join(__dirname, "vies/partials");
+const hbs = create({
+	extname: ".hbs",
+});
+app.engine(".hbs", hbs.engine);
+app.set("view engine", ".hbs");
 app.set("views", viewsDir);
 
 app.use(logger("dev"));
@@ -25,7 +29,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
-app.use("/users", usersRouter);
 app.use("/catalog", catalogRouter);
 
 // catch 404 and forward to error handler
@@ -44,4 +47,4 @@ app.use((err, req, res, next) => {
 	res.render("error");
 });
 
-module.exports = app;
+export default app;

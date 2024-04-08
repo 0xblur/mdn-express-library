@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const Schema = mongoose.Schema;
 
@@ -17,4 +17,6 @@ BookSchema.virtual("url").get(function () {
 });
 
 // Export model
-module.exports = mongoose.model("Book", BookSchema);
+const Book = mongoose.model("Book", BookSchema);
+
+export default Book;

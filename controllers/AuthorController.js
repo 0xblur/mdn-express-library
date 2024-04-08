@@ -1,38 +1,40 @@
-const Author = require("../db/models/Author");
-const asyncHandler = require("express-async-handler");
+import Author from "../db/models/Author.js";
+import asyncHandler from "express-async-handler";
 
-exports.authorList = asyncHandler(async (req, res, next) => {
-	res.send("NOT YET IMPLEMENTED: Author list");
-});
+export default class AuthorController {
+	static authorList = asyncHandler(async (req, res, next) => {
+		res.send("NOT YET IMPLEMENTED: Author list");
+	});
 
-exports.authorDetail = asyncHandler(async (req, res, next) => {
-	res.send(`NOT YET IMPLEMENTED: Author detail: ${req.params.id}`);
-});
+	static authorDetail = asyncHandler(async (req, res, next) => {
+		res.send(`NOT YET IMPLEMENTED: Author detail: ${req.params.id}`);
+	});
 
-exports.authorCreateGet = asyncHandler(async (req, res, next) => {
-	res.send("NOT YET IMPLEMENTED: Author create GET");
-});
+	static authorCreateGet = asyncHandler(async (req, res, next) => {
+		res.send("NOT YET IMPLEMENTED: Author create GET");
+	});
 
-exports.authorCreatePost = asyncHandler(async (req, res, next) => {
-	res.send("NOT YET IMPLEMENTED: Author create POST");
-});
+	static authorCreatePost = asyncHandler(async (req, res, next) => {
+		res.send("NOT YET IMPLEMENTED: Author create POST");
+	});
 
-// Display author-delete form on GET.
-exports.authorDeleteGet = asyncHandler(async (req, res, next) => {
-	res.send("NOT YET IMPLEMENTED: Author delete GET");
-});
+	// Display author-delete form on GET.
+	static authorDeleteGet = asyncHandler(async (req, res, next) => {
+		res.send("NOT YET IMPLEMENTED: Author delete GET");
+	});
 
-// Handle Author delete on POST.
-exports.authorDeletePost = asyncHandler(async (req, res, next) => {
-	res.send("NOT YET IMPLEMENTED: Author delete POST");
-});
+	// Handle Author delete on POST.
+	static authorDeletePost = asyncHandler(async (req, res, next) => {
+		res.send("NOT YET IMPLEMENTED: Author delete POST");
+	});
 
-// Display Author update form on GET.
-exports.authorUpdateGet = asyncHandler(async (req, res, next) => {
-	res.send("NOT YET IMPLEMENTED: Author update GET");
-});
+	// Display Author update form on GET.
+	static authorUpdateGet = asyncHandler(async (req, res, next) => {
+		res.send("NOT YET IMPLEMENTED: Author update GET");
+	});
 
-// Handle Author update on POST
-exports.authorUpdatePost = asyncHandler(async (req, res, next) => {
-	res.send("NOT YET IMPLEMENTED: Author update POST");
-});
+	// Handle Author update on POST
+	static authorUpdatePost = asyncHandler(async (req, res, next) => {
+		res.send("NOT YET IMPLEMENTED: Author update POST");
+	});
+}
