@@ -32,6 +32,38 @@ server.on('error', onError);
 server.on('listening', onListening);
 
 /**
+ * 
+ * Send GET request to "/" in order to debug
+ */
+
+const opts = {
+  hostname: "localhost",
+  port: 8000,
+  path: "/",
+  method: "GET"
+}
+
+const req = http.request(opts, (res) => {
+  let data = "";
+
+  res.on("data", (chunk) => {
+    data += chunk
+  })
+
+  res.on("end", () => {
+    console.log(data)
+  })
+})
+
+req.on("error", (err) => {
+  console.error(err)
+})
+
+// Disable/enable debug request
+// req.end()
+
+
+/**
  * Normalize a port into a number, string, or false.
  */
 
