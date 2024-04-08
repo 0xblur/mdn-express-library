@@ -13,8 +13,6 @@ const app = express();
 // view engine setup
 const __dirname = "./";
 const viewsDir = path.join(__dirname, "views");
-const layoutsDir = path.join(__dirname, "views/layouts");
-const partialsDir = path.join(__dirname, "vies/partials");
 const hbs = create({
 	extname: ".hbs",
 });
