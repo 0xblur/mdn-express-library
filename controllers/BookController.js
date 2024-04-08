@@ -4,9 +4,11 @@ import Genre from "../db/models/Genre.js";
 import BookInstance from "../db/models/BookInstance.js";
 
 import asyncHandler from "express-async-handler";
+import { connectToDB } from "../db/utils.js";
 
 export default class BookController {
 	static index = asyncHandler(async (req, res, next) => {
+		await connectToDB();
 		const [
 			numBooks,
 			numBookInstances,
