@@ -1,0 +1,18 @@
+<h1>{{ title }}</h1>
+{{#with book_list as | book_list |}}
+    {{#if book_list.length}}
+        <ul>
+            {{#each book_list}}
+                {{#with this as | book |}}
+                    <li>
+                        <p>
+                            <a href="{{ book.url }}">{{ book.title }}</a> ({{ book.author.name }})
+                        </p>
+                    </li>
+                {{/with}}
+            {{/each}}
+        </ul>
+    {{ else }}
+        <p>There are no books.</p>
+    {{/if}}
+{{/with}}
