@@ -1,6 +1,7 @@
 import createError from "http-errors";
 import express from "express";
 import Handlebars from "handlebars";
+import hbsHelpers from "handlebars-helpers";
 import { allowInsecurePrototypeAccess } from "@handlebars/allow-prototype-access";
 import { create } from "express-handlebars";
 import path from "node:path";
@@ -15,9 +16,11 @@ const app = express();
 // view engine setup
 const __dirname = "./";
 const viewsDir = path.join(__dirname, "views");
+const helpers = hbsHelpers("comparison");
 const hbs = create({
 	extname: ".hbs",
 	handlebars: allowInsecurePrototypeAccess(Handlebars),
+	helpers: helpers,
 });
 app.engine(".hbs", hbs.engine);
 app.set("view engine", ".hbs");
