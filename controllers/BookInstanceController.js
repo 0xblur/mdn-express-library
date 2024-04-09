@@ -1,7 +1,16 @@
 import BookInstance from "../db/models/BookInstance.js";
 import asyncHandler from "express-async-handler";
+import { connectToDB } from "../db/utils.js";
 
 export default class BookInstanceController {
+	constructor() {
+		BookInstanceController.init();
+	}
+
+	static init = async () => {
+		await connectToDB();
+	};
+
 	// Display list of all BookInstances.
 	static bookInstanceList = asyncHandler(async (req, res, next) => {
 		res.send("NOT IMPLEMENTED: BookInstance list");
