@@ -8,7 +8,12 @@ import { connectToDB } from "../db/utils.js";
 
 export default class BookController {
 	static index = asyncHandler(async (req, res, next) => {
+	constructor() {
+		BookController.init();
+	}
+	static async init() {
 		await connectToDB();
+	}
 		const [
 			numBooks,
 			numBookInstances,
