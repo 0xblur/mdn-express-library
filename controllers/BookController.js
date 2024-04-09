@@ -7,13 +7,13 @@ import asyncHandler from "express-async-handler";
 import { connectToDB } from "../db/utils.js";
 
 export default class BookController {
-	static index = asyncHandler(async (req, res, next) => {
 	constructor() {
 		BookController.init();
 	}
 	static async init() {
 		await connectToDB();
 	}
+	index = asyncHandler(async (req, res, next) => {
 		const [
 			numBooks,
 			numBookInstances,
@@ -39,8 +39,7 @@ export default class BookController {
 	});
 
 	// Display list of all books.
-	static bookList = asyncHandler(async (req, res, next) => {
-		await connectToDB();
+	bookList = asyncHandler(async (req, res, next) => {
 		const allBooks = await Book.find({}, "title author")
 			.sort({ title: 1 })
 			.populate("author")
@@ -51,17 +50,17 @@ export default class BookController {
 	});
 
 	// Display detail page for a specific book.
-	static bookDetail = asyncHandler(async (req, res, next) => {
+	bookDetail = asyncHandler(async (req, res, next) => {
 		res.send(`NOT IMPLEMENTED: Book detail: ${req.params.id}`);
 	});
 
 	// Display book create form on GET.
-	static bookCreateGet = asyncHandler(async (req, res, next) => {
+	bookCreateGet = asyncHandler(async (req, res, next) => {
 		res.send("NOT IMPLEMENTED: Book create GET");
 	});
 
 	// Handle book create on POST.
-	static bookCreatePost = asyncHandler(async (req, res, next) => {
+	ookCreatePost = asyncHandler(async (req, res, next) => {
 		res.send("NOT IMPLEMENTED: Book create POST");
 	});
 
