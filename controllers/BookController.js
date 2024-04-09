@@ -35,7 +35,14 @@ export default class BookController {
 
 	// Display list of all books.
 	static bookList = asyncHandler(async (req, res, next) => {
-		res.send("NOT IMPLEMENTED: Book list");
+		await connectToDB();
+		const allBooks = await Book.find({}, "title author")
+			.sort({ title: 1 })
+			.populate("author")
+			.exec();
+
+		console.log(allBooks[0]);
+		res.render("book_list", { title: "Book List", book_list: allBooks });
 	});
 
 	// Display detail page for a specific book.
