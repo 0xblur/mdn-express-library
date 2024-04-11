@@ -1,6 +1,8 @@
 import Author from "../db/models/Author.js";
+import Book from "../db/models/Book.js";
 import asyncHandler from "express-async-handler";
 import { connectToDB } from "../db/utils.js";
+import { body, validationResult } from "express-validator";
 
 export default class AuthorController {
 	constructor() {
@@ -11,6 +13,12 @@ export default class AuthorController {
 		await connectToDB();
 	}
 
+	authorList = asyncHandler(async (req, res, next) => {
+		const allAuthors = await Author.find().sort({ family_name: 1 }).exec();
+		res.render("author_list", {
+			title: "Author List",
+			author_list: allAuthors,
+		});
 	});
 
 	});
