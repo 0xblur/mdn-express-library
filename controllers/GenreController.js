@@ -40,32 +40,29 @@ export default class GenreController {
 	});
 
 	// Display Genre create form on GET.
-	static genreCreateGet = asyncHandler(async (req, res, next) => {
-		res.send("NOT IMPLEMENTED: Genre create GET");
-	});
+	genreCreateGet = (req, res, next) => {
+		res.render("genre_form", { title: "Create Genre" });
+	};
 
 	// Handle Genre create on POST.
-	static genreCreatePost = asyncHandler(async (req, res, next) => {
-		res.send("NOT IMPLEMENTED: Genre create POST");
-	});
 
 	// Display Genre delete form on GET.
-	static genreDeleteGet = asyncHandler(async (req, res, next) => {
+	genreDeleteGet = asyncHandler(async (req, res, next) => {
 		res.send("NOT IMPLEMENTED: Genre delete GET");
 	});
 
 	// Handle Genre delete on POST.
-	static genreDeletePost = asyncHandler(async (req, res, next) => {
+	genreDeletePost = asyncHandler(async (req, res, next) => {
 		res.send("NOT IMPLEMENTED: Genre delete POST");
 	});
 
 	// Display Genre update form on GET.
-	static genreUpdateGet = asyncHandler(async (req, res, next) => {
+	genreUpdateGet = asyncHandler(async (req, res, next) => {
 		res.send("NOT IMPLEMENTED: Genre update GET");
 	});
 
 	// Handle Genre update on POST.
-	static genreUpdatePost = asyncHandler(async (req, res, next) => {
+	genreUpdatePost = asyncHandler(async (req, res, next) => {
 		res.send("NOT IMPLEMENTED: Genre update POST");
 	});
 }
