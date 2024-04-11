@@ -20,8 +20,23 @@ export default class GenreController {
 	});
 
 	// Display detail page for a specific Genre.
-	static genreDetail = asyncHandler(async (req, res, next) => {
-		res.send(`NOT IMPLEMENTED: Genre detail: ${req.params.id}`);
+	genreDetail = asyncHandler(async (req, res, next) => {
+		const [genre, booksInGenre] = await Promise.all([
+			Genre.findById(req.params.id).exec(),
+			Book.find({ genre: req.params.id }, "title summary").exec(),
+		]);
+
+		if (genre === null) {
+			const err = new Error("Genre not found.");
+			err.status = 404;
+			return next(err);
+		}
+
+		res.render("genre_detail", {
+			title: "Genre detail",
+			genre: genre,
+			genre_books: booksInGenre,
+		});
 	});
 
 	// Display Genre create form on GET.
