@@ -64,22 +64,22 @@ export default class BookController {
 	});
 
 	// Display book delete form on GET.
-	static bookDeleteGet = asyncHandler(async (req, res, next) => {
+	bookDeleteGet = asyncHandler(async (req, res, next) => {
 		res.send("NOT IMPLEMENTED: Book delete GET");
 	});
 
 	// Handle book delete on POST.
-	static bookDeletePost = asyncHandler(async (req, res, next) => {
+	bookDeletePost = asyncHandler(async (req, res, next) => {
 		res.send("NOT IMPLEMENTED: Book delete POST");
 	});
 
 	// Display book update form on GET.
-	static bookUpdateGet = asyncHandler(async (req, res, next) => {
+	bookUpdateGet = asyncHandler(async (req, res, next) => {
 		res.send("NOT IMPLEMENTED: Book update GET");
 	});
 
 	// Handle book update on POST.
-	static bookUpdatePost = asyncHandler(async (req, res, next) => {
+	bookUpdatePost = asyncHandler(async (req, res, next) => {
 		res.send("NOT IMPLEMENTED: Book update POST");
 	});
 }
