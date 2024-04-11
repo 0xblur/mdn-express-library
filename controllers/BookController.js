@@ -59,7 +59,7 @@ export default class BookController {
 	});
 
 	// Handle book create on POST.
-	ookCreatePost = asyncHandler(async (req, res, next) => {
+	bookCreatePost = asyncHandler(async (req, res, next) => {
 		res.send("NOT IMPLEMENTED: Book create POST");
 	});
 
