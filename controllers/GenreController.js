@@ -1,7 +1,15 @@
 import Genre from "../db/models/Genre.js";
 import asyncHandler from "express-async-handler";
+import { connectToDB } from "../db/utils.js";
 
 export default class GenreController {
+	constructor() {
+		GenreController.init();
+	}
+
+	static async init() {
+		connectToDB();
+	}
 	// Display list of all Genre.
 	static genreList = asyncHandler(async (req, res, next) => {
 		res.send("NOT IMPLEMENTED: Genre list");
