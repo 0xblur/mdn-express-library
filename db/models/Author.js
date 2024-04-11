@@ -1,3 +1,4 @@
+import { DateTime } from "luxon";
 import mongoose from "mongoose";
 
 const Schema = mongoose.Schema;
@@ -16,6 +17,17 @@ AuthorSchema.virtual("name").get(function () {
 	}
 
 	return fullname;
+});
+
+AuthorSchema.virtual("lifespan").get(function () {
+	const date_of_birth_formatted = this.date_of_birth
+		? DateTime.fromJSDate(this.date_of_birth).toLocaleString(DateTime.DATE_MED)
+		: "";
+	const date_of_death_formatted = this.date_of_death
+		? DateTime.fromJSDate(this.date_of_death).toLocaleString(DateTime.DATE_MED)
+		: "";
+
+	return `(${date_of_birth_formatted}—${date_of_death_formatted})`;
 });
 
 AuthorSchema.virtual("url").get(function () {
