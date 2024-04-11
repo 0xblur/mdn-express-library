@@ -1,0 +1,12 @@
+<h1>{{ title }}</h1>
+<ul>
+    {{#with author_list as |author_list|}}
+        {{#if author_list.length}}
+            {{#each author_list}}
+                <li>{{> author}}</li>
+            {{/each}}
+        {{ else }}
+            <p>There are no authors.</p>
+        {{/if}}
+    {{/with}}
+</ul>
