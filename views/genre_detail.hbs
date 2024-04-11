@@ -1,0 +1,20 @@
+<h1>Genre: {{ genre.name }}</h1>
+<div class="genre container">
+  <h4>Books</h4>
+  {{#if genre_books.length }}
+    <dl>
+      {{#each genre_books }}
+        {{#with this as |book|}}
+          <dt>
+            <a href="{{ url }}">{{ title }}</a>
+          </dt>
+          <dd>
+            {{ summary }}
+          </dd>
+        {{/with}}
+      {{/each}}
+    </dl>
+  {{ else }}
+    <p>This genre has no books</p>
+  {{/if}}
+</div>
