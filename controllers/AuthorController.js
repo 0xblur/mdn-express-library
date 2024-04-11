@@ -1,13 +1,21 @@
 import Author from "../db/models/Author.js";
 import asyncHandler from "express-async-handler";
+import { connectToDB } from "../db/utils.js";
 
 export default class AuthorController {
 	static authorList = asyncHandler(async (req, res, next) => {
 		res.send("NOT YET IMPLEMENTED: Author list");
 	});
+	constructor() {
+		AuthorController.init();
+	}
 
 	static authorDetail = asyncHandler(async (req, res, next) => {
 		res.send(`NOT YET IMPLEMENTED: Author detail: ${req.params.id}`);
+	static async init() {
+		await connectToDB();
+	}
+
 	});
 
 	static authorCreateGet = asyncHandler(async (req, res, next) => {
