@@ -21,6 +21,23 @@ export default class AuthorController {
 		});
 	});
 
+	authorDetail = asyncHandler(async (req, res, next) => {
+		const [author, authorBooks] = await Promise.all([
+			Author.findById(req.params.id).exec(),
+			Book.find({ author: req.params.id }, "title summary").exec(),
+		]);
+
+		if (author === null || authorBooks === null) {
+			const err = new Error("Author not found.");
+			err.status = 404;
+			return next(err);
+		}
+
+		res.render("author_detail", {
+			title: author.name,
+			author: author,
+			author_books: authorBooks,
+		});
 	});
 
 	authorCreateGet = asyncHandler(async (req, res, next) => {
