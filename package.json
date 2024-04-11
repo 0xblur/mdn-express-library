@@ -4,10 +4,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "start": "DEBUG=express-locallibrary-tutorial:* node --env-file=.env ./bin/www",
-    "watch": "DEBUG=express-locallibrary-tutorial:* node --watch --env-file=.env ./bin/www",
-    "db": "node --env-file=.env ./db/main.js",
-    "debug": "node --env-file=.env --inspect-brk ./bin/www"
+    "start": "DEBUG=express-locallibrary-tutorial:* bun --env-file=.env ./bin/www",
+    "watch": "DEBUG=express-locallibrary-tutorial:* bun --watch --env-file=.env ./bin/www",
+    "db": "bun --env-file=.env ./db/main.js",
+    "debug": "bun --env-file=.env --inspect-brk ./bin/www"
   },
   "dependencies": {
     "@handlebars/allow-prototype-access": "^1.0.5",
@@ -16,6 +16,7 @@
     "express": "~4.16.1",
     "express-async-handler": "^1.2.0",
     "express-handlebars": "^7.1.2",
+    "express-validator": "^7.0.1",
     "handlebars": "^4.7.8",
     "handlebars-helpers": "^0.10.0",
     "http-errors": "~1.6.3",
