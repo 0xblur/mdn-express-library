@@ -1,6 +1,8 @@
+import Book from "../db/models/Book.js";
 import Genre from "../db/models/Genre.js";
 import asyncHandler from "express-async-handler";
 import { connectToDB } from "../db/utils.js";
+import { body, validationResult } from "express-validator";
 
 export default class GenreController {
 	constructor() {
@@ -45,6 +47,37 @@ export default class GenreController {
 	};
 
 	// Handle Genre create on POST.
+	genreCreatePost = [
+		body("name", "Genre name must contain at least 3 characters.")
+			.trim()
+			.isLength({ min: 3 })
+			.escape(),
+
+		asyncHandler(async (req, res, next) => {
+			const errors = validationResult(req);
+
+			const genre = new Genre({ name: req.body.name });
+
+			if (!errors.isEmpty()) {
+				res.render("genre_form", {
+					title: "Create Genre",
+					genre,
+					errors: errors.array(),
+				});
+				return;
+			}
+
+			const genreExists = await Genre.findOne({ name: req.body.name })
+				.collation({ locale: "en", strength: 2 })
+				.exec();
+			if (genreExists) {
+				res.redirect(genreExists.url);
+			} else {
+				await genre.save();
+				res.redirect(genre.url);
+			}
+		}),
+	];
 
 	// Display Genre delete form on GET.
 	genreDeleteGet = asyncHandler(async (req, res, next) => {
