@@ -1,0 +1,48 @@
+<h1>{{book.title}}</h1>
+<p>
+  <strong>Author:</strong>&nbsp;<a href="{{book.author.url}}">{{book.author.name}}</a>
+</p>
+<p>
+  <strong>Summary:</strong>&nbsp;{{book.summary}}
+</p>
+<p>
+  <strong>ISBN:</strong>&nbsp;{{book.isbn}}
+</p>
+<p>
+  <strong>Genre:</strong>&nbsp;
+  {{#with book.genre as |genres|}}
+    {{#eachIndex genres}}
+      <a href="{{item.url}}">{{item.name}}</a>
+    {{#if (unlessEq index (minus genres.length 1)) }}
+      <span class="genre separator">,&nbsp</span>
+    {{/if}}
+    {{/eachIndex}}
+  {{/with}}
+</p>
+<div class="copies container">
+  <h4>Copies</h4>
+  {{#if book_instances.length }}
+    {{#each book_instances }}
+      <hr>
+      {{#if (eq this.status "Available") }}
+        <p class="text-success">{{this.status}}</p>
+      {{else}}
+        {{#if (eq this.status "Maintenance") }}
+          <p class="text-danger">{{this.status}}</p>
+        {{else}}
+          <p class="text-warning">{{this.status}}</p>
+        {{/if}}
+      {{/if}}
+      <p>
+        <strong>Imprint:</strong>&nbsp;{{this.imprint}}
+      </p>
+      {{#if (unlessEq this.status "Available") }}
+        <p>
+          <strong>Due back:</strong>&nbsp;{{this.due_back_formatted}}
+        </p>
+      {{/if}}
+    {{/each}}
+  {{else}}
+    <p>There are no copies left of this book in the library.</p>
+  {{/if}}
+</div>
