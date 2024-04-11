@@ -1,0 +1,17 @@
+<h1>{{author.name}}</h1>
+<p>{{author.lifespan}}</p>
+<div class="author container">
+  <h4>Books</h4>
+  {{#if author_books.length}}
+    <dl>
+      {{#each author_books}}
+        <dt>
+          <a href="{{this.url}}">{{this.title}}</a>
+        </dt>
+        <dd>{{this.summary}}</dd>
+      {{/each}}
+    </dl>
+    {{else}}
+    <p>This author has no books.</p>
+  {{/if}}
+</div>
