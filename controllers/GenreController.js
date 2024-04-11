@@ -11,8 +11,12 @@ export default class GenreController {
 		connectToDB();
 	}
 	// Display list of all Genre.
-	static genreList = asyncHandler(async (req, res, next) => {
-		res.send("NOT IMPLEMENTED: Genre list");
+	genreList = asyncHandler(async (req, res, next) => {
+		const allGenres = await Genre.find().sort({ name: 1 }).exec();
+		res.render("genre_list", {
+			title: "List of genres",
+			genre_list: allGenres,
+		});
 	});
 
 	// Display detail page for a specific Genre.
