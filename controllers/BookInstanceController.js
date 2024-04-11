@@ -21,8 +21,21 @@ export default class BookInstanceController {
 	});
 
 	// Display detail page for a specific BookInstance.
-	static bookInstanceDetail = asyncHandler(async (req, res, next) => {
-		res.send(`NOT IMPLEMENTED: BookInstance detail: ${req.params.id}`);
+	bookInstanceDetail = asyncHandler(async (req, res, next) => {
+		const bookInstance = await BookInstance.findById(req.params.id)
+			.populate("book")
+			.exec();
+
+		if (bookInstance === null) {
+			const err = new Error("Book copy not found.");
+			err.status = 404;
+			return next(err);
+		}
+
+		res.render("bookinstance_detail", {
+			title: bookInstance._id,
+			bookinstance: bookInstance,
+		});
 	});
 
 	// Display BookInstance create form on GET.
