@@ -1,0 +1,12 @@
+<h1>{{ title }}</h1>
+<ul>
+    {{#with genre_list as |genre_list|}}
+        {{#if genre_list.length}}
+            {{#each genre_list}}
+                <li>{{> genre}}</li>
+            {{/each}}
+        {{ else }}
+            <p>There are no genres.</p>
+        {{/if}}
+    {{/with}}
+</ul>
