@@ -1,0 +1,17 @@
+<h1>{{title}}</h1>
+<form action="create" method="post">
+  <div class="form-group">
+    <label for="name">Genre:
+      <input required type="text" id="name" class="form-control" name="name" placeholder="Fantasy" value={{genre.name}}>
+      </input>
+    </label>
+  </div>
+  <button class="btn btn-primary" type="submit">Submit</button>
+  {{#if errors}}
+    <ul>
+      {{#each errors}}
+        <li>{{this.msg}}</li>
+      {{/each}}
+    </ul>
+  {{/if}}
+</form>
