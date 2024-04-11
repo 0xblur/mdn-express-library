@@ -6,125 +6,128 @@ import express from "express";
 
 const router = express.Router();
 
-router.get("/", BookController.index);
+router.get("/", new BookController().index);
 
-router.get("/book/create", BookController.bookCreateGet);
+router.get("/book/create", new BookController().bookCreateGet);
 
 // POST request for creating Book.
-router.post("/book/create", BookController.bookCreatePost);
+router.post("/book/create", new BookController().bookCreatePost);
 
 // GET request to delete Book.
-router.get("/book/:id/delete", BookController.bookDeleteGet);
+router.get("/book/:id/delete", new BookController().bookDeleteGet);
 
 // POST request to delete Book.
-router.post("/book/:id/delete", BookController.bookDeletePost);
+router.post("/book/:id/delete", new BookController().bookDeletePost);
 
 // GET request to update Book.
-router.get("/book/:id/update", BookController.bookUpdateGet);
+router.get("/book/:id/update", new BookController().bookUpdateGet);
 
 // POST request to update Book.
-router.post("/book/:id/update", BookController.bookUpdatePost);
+router.post("/book/:id/update", new BookController().bookUpdatePost);
 
 // GET request for one Book.
-router.get("/book/:id", BookController.bookDetail);
+router.get("/book/:id", new BookController().bookDetail);
 
 // GET request for list of all Book items.
-router.get("/books", BookController.bookList);
+router.get("/books", new BookController().bookList);
 
 /// AUTHOR ROUTES ///
 
 // GET request for creating Author. NOTE This must come before route for id (i.e. display author).
-router.get("/author/create", AuthorController.authorCreateGet);
+router.get("/author/create", new AuthorController().authorCreateGet);
 
 // POST request for creating Author.
-router.post("/author/create", AuthorController.authorCreatePost);
+router.post("/author/create", new AuthorController().authorCreatePost);
 
 // GET request to delete Author.
-router.get("/author/:id/delete", AuthorController.authorDeleteGet);
+router.get("/author/:id/delete", new AuthorController().authorDeleteGet);
 
 // POST request to delete Author.
-router.post("/author/:id/delete", AuthorController.authorDeletePost);
+router.post("/author/:id/delete", new AuthorController().authorDeletePost);
 
 // GET request to update Author.
-router.get("/author/:id/update", AuthorController.authorUpdateGet);
+router.get("/author/:id/update", new AuthorController().authorUpdateGet);
 
 // POST request to update Author.
-router.post("/author/:id/update", AuthorController.authorUpdatePost);
+router.post("/author/:id/update", new AuthorController().authorUpdatePost);
 
 // GET request for one Author.
-router.get("/author/:id", AuthorController.authorDetail);
+router.get("/author/:id", new AuthorController().authorDetail);
 
 // GET request for list of all Authors.
-router.get("/authors", AuthorController.authorList);
+router.get("/authors", new AuthorController().authorList);
 
 /// GENRE ROUTES ///
 
 // GET request for creating a Genre. NOTE This must come before route that displays Genre (uses id).
-router.get("/genre/create", GenreController.genreCreateGet);
+router.get("/genre/create", new GenreController().genreCreateGet);
 
 //POST request for creating Genre.
-router.post("/genre/create", GenreController.genreCreatePost);
+router.post("/genre/create", new GenreController().genreCreatePost);
 
 // GET request to delete Genre.
-router.get("/genre/:id/delete", GenreController.genreDeleteGet);
+router.get("/genre/:id/delete", new GenreController().genreDeleteGet);
 
 // POST request to delete Genre.
-router.post("/genre/:id/delete", GenreController.genreDeletePost);
+router.post("/genre/:id/delete", new GenreController().genreDeletePost);
 
 // GET request to update Genre.
-router.get("/genre/:id/update", GenreController.genreUpdateGet);
+router.get("/genre/:id/update", new GenreController().genreUpdateGet);
 
 // POST request to update Genre.
-router.post("/genre/:id/update", GenreController.genreUpdatePost);
+router.post("/genre/:id/update", new GenreController().genreUpdatePost);
 
 // GET request for one Genre.
-router.get("/genre/:id", GenreController.genreDetail);
+router.get("/genre/:id", new GenreController().genreDetail);
 
 // GET request for list of all Genre.
-router.get("/genres", GenreController.genreList);
+router.get("/genres", new GenreController().genreList);
 
 /// BOOKINSTANCE ROUTES ///
 
 // GET request for creating a BookInstance. NOTE This must come before route that displays BookInstance (uses id).
 router.get(
 	"/bookinstance/create",
-	BookInstanceController.bookInstanceCreateGet,
+	new BookInstanceController().bookInstanceCreateGet,
 );
 
 // POST request for creating BookInstance.
 router.post(
 	"/bookinstance/create",
-	BookInstanceController.bookInstanceCreatePost,
+	new BookInstanceController().bookInstanceCreatePost,
 );
 
 // GET request to delete BookInstance.
 router.get(
 	"/bookinstance/:id/delete",
-	BookInstanceController.bookInstanceDeleteGet,
+	new BookInstanceController().bookInstanceDeleteGet,
 );
 
 // POST request to delete BookInstance.
 router.post(
 	"/bookinstance/:id/delete",
-	BookInstanceController.bookInstanceDeletePost,
+	new BookInstanceController().bookInstanceDeletePost,
 );
 
 // GET request to update BookInstance.
 router.get(
 	"/bookinstance/:id/update",
-	BookInstanceController.bookInstanceUpdateGet,
+	new BookInstanceController().bookInstanceUpdateGet,
 );
 
 // POST request to update BookInstance.
 router.post(
 	"/bookinstance/:id/update",
-	BookInstanceController.bookInstanceUpdatePost,
+	new BookInstanceController().bookInstanceUpdatePost,
 );
 
 // GET request for one BookInstance.
-router.get("/bookinstance/:id", BookInstanceController.bookInstanceDetail);
+router.get(
+	"/bookinstance/:id",
+	new BookInstanceController().bookInstanceDetail,
+);
 
 // GET request for list of all BookInstance.
-router.get("/bookinstances", BookInstanceController.bookInstanceList);
+router.get("/bookinstances", new BookInstanceController().bookInstanceList);
 
 export default router;
