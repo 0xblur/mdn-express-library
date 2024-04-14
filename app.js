@@ -16,7 +16,13 @@ const app = express();
 // view engine setup
 const __dirname = "./";
 const viewsDir = path.join(__dirname, "views");
-const helpers = hbsHelpers(["comparison", "array", "math", "misc"]);
+const hbsHelpers = createHbsHelpers([
+	"comparison",
+	"array",
+	"math",
+	"misc",
+	"string",
+]);
 const hbs = create({
 	extname: ".hbs",
 	handlebars: allowInsecurePrototypeAccess(Handlebars),
