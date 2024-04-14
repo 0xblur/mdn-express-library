@@ -11,11 +11,11 @@
         <dd>{{this.summary}}</dd>
       {{/each}}
     </dl>
-    {{else}}
+  {{else}}
     <p>This author has no books.</p>
   {{/if}}
 </div>
-<hr>
+<hr />
 <p>
-  <a href={{append author.url "/delete"}}></a>
+  <a href={{append author.url "/delete"}}>Delete author</a>
 </p>
