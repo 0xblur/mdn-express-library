@@ -16,16 +16,18 @@
       {{/each}}
     </dl>
   </div>
-  {{else}}
+{{else}}
   <p>Do you really want to delete this author?</p>
   <form action="delete" method="post">
     <div class="form-group">
-      <input type="hidden" name="authorid" id="authorid" value={{author._id}} class="form-control">
+      <input
+        type="hidden"
+        name="authorid"
+        id="authorid"
+        value={{author._id}}
+        class="form-control"
+      />
     </div>
-  <button class="btn btn-primary" type="submit">Delete</button>
+    <button class="btn btn-primary" type="submit">Delete</button>
   </form>
 {{/if}}
-<hr>
-<p>
-  <a href={{append author.url "/delete"}}></a>
-</p>
