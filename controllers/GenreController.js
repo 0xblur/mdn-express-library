@@ -81,7 +81,21 @@ export default class GenreController {
 
 	// Display Genre delete form on GET.
 	genreDeleteGet = asyncHandler(async (req, res, next) => {
-		res.send("NOT IMPLEMENTED: Genre delete GET");
+		const [genre, allBooksByGenre] = await Promise.all([
+			Genre.findById(req.params.id).exec(),
+			Book.find({ genre: req.params.id }, "title summary").exec(),
+		]);
+
+		if (genre === null) {
+			res.redirect("/catalog/genres");
+			return;
+		}
+
+		res.render("genre_delete", {
+			title: "Delete Genre",
+			genre,
+			genre_books: allBooksByGenre,
+		});
 	});
 
 	// Handle Genre delete on POST.
