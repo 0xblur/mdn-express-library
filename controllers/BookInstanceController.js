@@ -98,7 +98,17 @@ export default class BookInstanceController {
 
 	// Display BookInstance delete form on GET.
 	bookInstanceDeleteGet = asyncHandler(async (req, res, next) => {
-		res.send("NOT IMPLEMENTED: BookInstance delete GET");
+		const bookInstance = await BookInstance.findById(req.params.id)
+			.populate("book")
+			.exec();
+		if (bookInstance === null) {
+			res.redirect("/catalog/bookinstances");
+			return;
+		}
+		res.render("bookinstance_delete", {
+			title: "Delete Instance",
+			bookinstance: bookInstance,
+		});
 	});
 
 	// Handle BookInstance delete on POST.
