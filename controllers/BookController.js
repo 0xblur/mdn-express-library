@@ -5,6 +5,7 @@ import BookInstance from "../db/models/BookInstance.js";
 
 import asyncHandler from "express-async-handler";
 import { connectToDB } from "../db/utils.js";
+import { body, validationResult } from "express-validator";
 
 export default class BookController {
 	constructor() {
@@ -70,13 +71,88 @@ export default class BookController {
 
 	// Display book create form on GET.
 	bookCreateGet = asyncHandler(async (req, res, next) => {
-		res.send("NOT IMPLEMENTED: Book create GET");
+		const [allAuthors, allGenres] = await Promise.all([
+			Author.find().sort({ family_name: 1 }).exec(),
+			Genre.find().sort({ name: 1 }).exec(),
+		]);
+
+		res.render("book_form", {
+			title: "Create Book",
+			authors: allAuthors,
+			genres: allGenres,
+		});
 	});
 
 	// Handle book create on POST.
-	bookCreatePost = asyncHandler(async (req, res, next) => {
-		res.send("NOT IMPLEMENTED: Book create POST");
-	});
+	bookCreatePost = [
+		(req, res, next) => {
+			if (!Array.isArray(req.body.genre)) {
+				req.body.genre =
+					typeof req.body.genre === "undefined" ? [] : [req.body.genre];
+			}
+			next();
+		},
+
+		body("title", "Title must not be empty.")
+			.trim()
+			.isLength({ min: 3 })
+			.escape(),
+
+		body("author", "Author must not be empty.")
+			.trim()
+			.isLength({ min: 3 })
+			.escape(),
+
+		body("summary", "Summary must not be empty.")
+			.trim()
+			.isLength({ min: 10 })
+			.escape(),
+
+		body("isbn", "ISBN must not be empty")
+			.trim()
+			.isLength({ min: 13 })
+			.escape(),
+
+		body("genre.*").escape(),
+
+		asyncHandler(async (req, res, next) => {
+			const errs = validationResult(req);
+
+			const book = new Book({
+				title: req.body.title,
+				author: req.body.author,
+				summary: req.body.summary,
+				isbn: req.body.isbn,
+				genre: req.body.genre,
+			});
+
+			if (!errs.isEmpty()) {
+				const [allAuthors, allGenres] = await Promise.all([
+					Author.find().sort({ family_name: 1 }).exec(),
+					Genre.find().sort({ name: 1 }).exec(),
+				]);
+
+				for (const genre of allGenres) {
+					if (book.genre.includes(genre._id)) {
+						genre.checked = "true";
+					}
+				}
+
+				res.render("book_form", {
+					title: "Create Book",
+					authors: allAuthors,
+					genres: allGenres,
+					book,
+					errors: errs.array(),
+				});
+
+				return;
+			}
+
+			await book.save();
+			res.redirect(book.url);
+		}),
+	];
 
 	// Display book delete form on GET.
 	bookDeleteGet = asyncHandler(async (req, res, next) => {
