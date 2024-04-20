@@ -48,19 +48,14 @@
       Status:
       <select required name="status" id="status" class="form-control">
         <option value="">--Please select a status--</option>
-      </select>
-      {{#with
-        ["Maintenance", "Available", "Loaned", "Reserved"]
-        as |statusOptions|
-      }}
-        {{#each statusOptions}}
+        {{#each status_options}}
           {{#if (unlessEq bookinstance.status this)}}
             <option value={{this}}>{{this}}</option>
           {{else}}
             <option selected value={{this}}>{{this}}</option>
           {{/if}}
         {{/each}}
-      {{/with}}
+      </select>
     </label>
   </div>
   <button class="btn btn-primary" type="submit">Submit</button>
