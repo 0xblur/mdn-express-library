@@ -15,7 +15,6 @@ import myCustomHelpers from "./views/helpers/helpers.js";
 const app = express();
 
 // view engine setup
-const __dirname = "./";
 const viewsDir = path.join(__dirname, "views");
 const hbsHelpers = createHbsHelpers([
 	"comparison",
