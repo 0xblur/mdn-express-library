@@ -100,7 +100,21 @@ export default class GenreController {
 
 	// Handle Genre delete on POST.
 	genreDeletePost = asyncHandler(async (req, res, next) => {
-		res.send("NOT IMPLEMENTED: Genre delete POST");
+		const [genre, allBooksByGenre] = await Promise.all([
+			Author.findById(req.params.id).exec(),
+			Book.find({ author: req.params.id }, "title summary"),
+		]);
+		if (allBooksByGenre.length > 0) {
+			res.render("genre_delete", {
+				title: "Delete Genre",
+				genre,
+				genre_books: allBooksByGenre,
+			});
+			return;
+		}
+		await Genre.findByIdAndDelete(req.body.genreid);
+
+		res.redirect("/catalog/genres");
 	});
 
 	// Display Genre update form on GET.
