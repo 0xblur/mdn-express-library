@@ -1,6 +1,8 @@
 import BookInstance from "../db/models/BookInstance.js";
+import Book from "../db/models/Book.js";
 import asyncHandler from "express-async-handler";
 import { connectToDB } from "../db/utils.js";
+import { body, validationResult } from "express-validator";
 
 export default class BookInstanceController {
 	constructor() {
@@ -40,13 +42,58 @@ export default class BookInstanceController {
 
 	// Display BookInstance create form on GET.
 	bookInstanceCreateGet = asyncHandler(async (req, res, next) => {
-		res.send("NOT IMPLEMENTED: BookInstance create GET");
+		const allBooks = await Book.find({}, "title").sort({ title: 1 }).exec();
+
+		res.render("bookinstance_form", {
+			title: "Create BookInstance",
+			book_list: allBooks,
+		});
 	});
 
 	// Handle BookInstance create on POST.
-	bookInstanceCreatePost = asyncHandler(async (req, res, next) => {
-		res.send("NOT IMPLEMENTED: BookInstance create POST");
-	});
+	bookInstanceCreatePost = [
+		body("book", "Book must be specified.")
+			.trim()
+			.isLength({ min: 3 })
+			.escape(),
+
+		body("imprint", "Imprint must be specified.")
+			.trim()
+			.isLength({ min: 3 })
+			.escape(),
+
+		body("status").escape(),
+
+		body("due_back", "Invalid date").optional({ values: "falsy" }).isISO8601(),
+
+		asyncHandler(async (req, res, next) => {
+			const errors = validationResult(req);
+
+			const bookInstance = new BookInstance({
+				book: req.body.book,
+				imprint: req.body.imprint,
+				status: req.body.status,
+				due_back: req.body.due_back,
+			});
+
+			if (!errors.isEmpty()) {
+				const allBooks = await Book.find({}, "title").sort({ title: 1 }).exec();
+
+				res.render("bookinstance_form", {
+					title: "Create BookInstance",
+					book_list: allBooks,
+					selected_book: bookInstance.book._id,
+					errors: errors.array(),
+					bookInstance,
+				});
+
+				return;
+			}
+
+			await bookInstance.save();
+			res.redirect(bookInstance.url);
+		}),
+	];
 
 	// Display BookInstance delete form on GET.
 	bookInstanceDeleteGet = asyncHandler(async (req, res, next) => {
