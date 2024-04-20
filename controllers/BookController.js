@@ -175,7 +175,22 @@ export default class BookController {
 
 	// Handle book delete on POST.
 	bookDeletePost = asyncHandler(async (req, res, next) => {
-		res.send("NOT IMPLEMENTED: Book delete POST");
+		const [book, bookInstances] = await Promise.all([
+			Book.findById(req.params.id).exec(),
+			BookInstance.find({ book: req.params.id }, "status"),
+		]);
+
+		if (bookInstances.length > 0) {
+			res.render("book_delete", {
+				title: "Delete Book",
+				book,
+				book_instances: bookInstances,
+			});
+			return;
+		}
+		await Book.findByIdAndDelete(req.body.bookid);
+
+		res.redirect("/catalog/books");
 	});
 
 	// Display book update form on GET.
