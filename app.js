@@ -1,7 +1,7 @@
 import createError from "http-errors";
 import express from "express";
 import Handlebars from "handlebars";
-import hbsHelpers from "handlebars-helpers";
+import createHbsHelpers from "handlebars-helpers";
 import { allowInsecurePrototypeAccess } from "@handlebars/allow-prototype-access";
 import { create } from "express-handlebars";
 import path from "node:path";
@@ -10,6 +10,7 @@ import logger from "morgan";
 
 import indexRouter from "./routes/index.js";
 import catalogRouter from "./routes/catalog.js";
+import myCustomHelpers from "./views/helpers/helpers.js";
 
 const app = express();
 
@@ -23,11 +24,13 @@ const hbsHelpers = createHbsHelpers([
 	"misc",
 	"string",
 ]);
+
 const hbs = create({
 	extname: ".hbs",
 	handlebars: allowInsecurePrototypeAccess(Handlebars),
-	helpers: helpers,
+	helpers: { ...hbsHelpers, ...myCustomHelpers },
 });
+
 app.engine(".hbs", hbs.engine);
 app.set("view engine", ".hbs");
 app.set("views", viewsDir);
