@@ -121,7 +121,11 @@ export default class GenreController {
 
 	// Display Genre update form on GET.
 	genreUpdateGet = asyncHandler(async (req, res, next) => {
-		res.send("NOT IMPLEMENTED: Genre update GET");
+		const genre = await Genre.findById(req.params.id);
+		res.render("genre_form", {
+			title: "Update Genre",
+			genre,
+		});
 	});
 
 	// Handle Genre update on POST.
