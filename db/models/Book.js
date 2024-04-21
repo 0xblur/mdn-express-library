@@ -16,6 +16,10 @@ BookSchema.virtual("url").get(function () {
 	return `/catalog/book/${this._id}`;
 });
 
+BookSchema.virtual("idAsString").get(function () {
+	return this._id.toString();
+});
+
 // Export model
 const Book = mongoose.model("Book", BookSchema);
 
