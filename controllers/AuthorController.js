@@ -156,7 +156,60 @@ export default class AuthorController {
 	});
 
 	// Handle Author update on POST
-	authorUpdatePost = asyncHandler(async (req, res, next) => {
-		res.send("NOT YET IMPLEMENTED: Author update POST");
-	});
+	authorUpdatePost = [
+		body("first_name")
+			.trim()
+			.isLength({ min: 2 })
+			.escape()
+			.withMessage("First name must be specified.")
+			.isAlphanumeric()
+			.withMessage("First name has non-alphanumeric characters."),
+
+		body("family_name")
+			.trim()
+			.isLength({ min: 2 })
+			.escape()
+			.withMessage("Family name must be specified.")
+			.isAlphanumeric()
+			.withMessage("Family name has non-alphanumeric characters."),
+
+		body("date_of_birth", "Invalid date of birth.")
+			.optional({ values: "falsy" })
+			.isISO8601()
+			.toDate(),
+
+		body("date_of_death", "Invalid date of death")
+			.optional({ values: "falsy" })
+			.isISO8601()
+			.toDate(),
+
+		asyncHandler(async (req, res) => {
+			const errors = validationResult(req);
+
+			const author = new Author({
+				first_name: req.body.first_name,
+				family_name: req.body.family_name,
+				date_of_birth: req.body.date_of_birth,
+				date_of_death: req.body.date_of_death,
+				_id: req.params.id,
+			});
+
+			if (!errors.isEmpty()) {
+				res.render("author_form", {
+					title: "Update Author",
+					author,
+					errors: errors.array(),
+				});
+				return;
+			}
+
+			const updatedAuthor = await Author.findByIdAndUpdate(
+				req.params.id,
+				author,
+				{},
+			);
+
+			res.redirect(updatedAuthor.url);
+		}),
+	];
 }
