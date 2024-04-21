@@ -3,6 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
+  "engines": {
+    "node": ">=21.7.3"
+  },
   "scripts": {
     "start": "DEBUG=express-locallibrary-tutorial:* bun --env-file=.env ./bin/www",
     "watch": "DEBUG=express-locallibrary-tutorial:* bun --watch --env-file=.env ./bin/www",
