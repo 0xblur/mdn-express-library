@@ -43,7 +43,9 @@ export default class GenreController {
 
 	// Display Genre create form on GET.
 	genreCreateGet = (req, res, next) => {
-		res.render("genre_form", { title: "Create Genre" });
+		res.render("genre_form", {
+			title: "Create Genre",
+		});
 	};
 
 	// Handle Genre create on POST.
