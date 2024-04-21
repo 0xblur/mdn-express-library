@@ -19,6 +19,22 @@ AuthorSchema.virtual("name").get(function () {
 	return fullname;
 });
 
+AuthorSchema.virtual("date_of_birth_ISO").get(function () {
+	const date_of_birth_ISO = this.date_of_birth
+		? DateTime.fromJSDate(this.date_of_birth).toISODate()
+		: "";
+
+	return date_of_birth_ISO;
+});
+
+AuthorSchema.virtual("date_of_death_ISO").get(function () {
+	const date_of_death_ISO = this.date_of_death
+		? DateTime.fromJSDate(this.date_of_death).toISODate()
+		: "";
+
+	return date_of_death_ISO;
+});
+
 AuthorSchema.virtual("lifespan").get(function () {
 	const date_of_birth_formatted = this.date_of_birth
 		? DateTime.fromJSDate(this.date_of_birth).toLocaleString(DateTime.DATE_MED)
