@@ -6,13 +6,13 @@
       <select required name="book" id="book" class="form-control">
         <option value="">--Please select a book--</option>
         {{#each book_list}}
-          {{#if (haveEqualId selected_book this._id)}}
-            <option
-              selected="selected"
-              value={{this._id}}
-            >{{this.title}}</option>
+          {{#if (unlessEq ../selected_book this.idAsString) }}
+            <option value="{{this.idAsString}}">{{this.title}}</option>
           {{else}}
-            <option value={{this._id}}>{{this.title}}</option>
+            <option
+              selected
+              value="{{this.idAsString}}"
+            >{{this.title}}</option>
           {{/if}}
         {{/each}}
       </select>
@@ -28,7 +28,7 @@
         required
         placeholder="Publisher and date information"
         name="imprint"
-        value={{bookinstance.imprint}}
+        value="{{bookinstance.imprint}}"
       />
     </label>
   </div>
@@ -49,10 +49,10 @@
       <select required name="status" id="status" class="form-control">
         <option value="">--Please select a status--</option>
         {{#each status_options}}
-          {{#if (unlessEq bookinstance.status this)}}
-            <option value={{this}}>{{this}}</option>
+          {{#if (unlessEq ../bookinstance.status this)}}
+            <option value="{{this}}">{{this}}</option>
           {{else}}
-            <option selected value={{this}}>{{this}}</option>
+            <option selected value="{{this}}">{{this}}</option>
           {{/if}}
         {{/each}}
       </select>
