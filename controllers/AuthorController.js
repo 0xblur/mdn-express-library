@@ -138,7 +138,21 @@ export default class AuthorController {
 
 	// Display Author update form on GET.
 	authorUpdateGet = asyncHandler(async (req, res, next) => {
-		res.send("NOT YET IMPLEMENTED: Author update GET");
+		const author = Author.findById(req.params.id).exec();
+
+		if (author === null) {
+			const err = new Error("Author not found.");
+			err.status = 404;
+			return next(err);
+		}
+
+		res.render("author_form", {
+			title: "Update Author",
+			first_name: author.first_name,
+			family_name: author.family_name,
+			date_of_birth: author.date_of_birth_ISO,
+			date_of_death: author.date_of_death_ISO,
+		});
 	});
 
 	// Handle Author update on POST
