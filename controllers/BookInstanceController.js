@@ -125,7 +125,24 @@ export default class BookInstanceController {
 
 	// Display BookInstance update form on GET.
 	bookInstanceUpdateGet = asyncHandler(async (req, res, next) => {
-		res.send("NOT IMPLEMENTED: BookInstance update GET");
+		const [bookInstance, allBooks] = await Promise.all([
+			BookInstance.findById(req.params.id).exec(),
+			Book.find({}, "title").sort({ title: 1 }).exec(),
+		]);
+
+		if (bookInstance === null) {
+			const error = new Error("Instance not found.");
+			error.status = 404;
+			return next(error);
+		}
+
+		res.render("bookinstance_form", {
+			title: "Update BookInstance",
+			book_list: allBooks,
+			status_options: BookInstance.schema.obj.status.enum,
+			bookinstance: bookInstance,
+			selected_book: bookInstance.book._id.toString(),
+		});
 	});
 
 	// Handle bookinstance update on POST.
