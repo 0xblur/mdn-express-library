@@ -83,9 +83,10 @@ export default class BookInstanceController {
 				res.render("bookinstance_form", {
 					title: "Create BookInstance",
 					book_list: allBooks,
-					selected_book: bookInstance.book._id,
+					selected_book: bookInstance.book._id.toString(),
 					errors: errors.array(),
-					bookInstance,
+					bookinstance: bookInstance,
+					status_options: BookInstance.schema.obj.status.enum,
 				});
 
 				return;
