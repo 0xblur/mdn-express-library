@@ -7,6 +7,13 @@ import { create } from "express-handlebars";
 import path from "node:path";
 import cookieParser from "cookie-parser";
 import logger from "morgan";
+import compression from "compression";
+import helmet from "helmet";
+import RateLimit from "express-rate-limit";
+const limiter = RateLimit({
+	windowMs: 1 * 60 * 1000,
+	max: 10,
+});
 
 import indexRouter from "./routes/index.js";
 import catalogRouter from "./routes/catalog.js";
@@ -38,6 +45,15 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(
+	helmet.contentSecurityPolicy({
+		directives: {
+			"script-src": ["'self'", "code.jquery.com", "cdn.jsdeliver.net"],
+		},
+	}),
+);
+app.use(limiter);
+app.use(compression());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
